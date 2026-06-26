@@ -18,6 +18,12 @@
                        value="{{ old('name') }}" required>
                 @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
+            <div class="md:col-span-2">
+                <label class="form-label" for="desc">Description</label>
+                <textarea id="desc" name="desc" class="form-control @error('desc') is-invalid @enderror"
+                          rows="3">{{ old('desc') }}</textarea>
+                @error('desc')<div class="invalid-feedback">{{ $message }}</div>@enderror
+            </div>
             <div>
                 <label class="form-label" for="status">Status <span class="text-red-500">*</span></label>
                 <select id="status" name="status" class="form-control @error('status') is-invalid @enderror" required>
@@ -25,12 +31,6 @@
                     <option value="Inactive" {{ old('status') === 'Inactive' ? 'selected' : '' }}>Inactive</option>
                 </select>
                 @error('status')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-            <div class="md:col-span-2">
-                <label class="form-label" for="desc">Description</label>
-                <textarea id="desc" name="desc" class="form-control @error('desc') is-invalid @enderror"
-                          rows="3">{{ old('desc') }}</textarea>
-                @error('desc')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
         </div>
 

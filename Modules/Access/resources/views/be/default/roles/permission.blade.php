@@ -96,7 +96,7 @@
                         @if($perm['status'] === 'Active')
                             <i class="fas fa-check-circle text-green-500 text-xl"></i>
                         @else
-                            <i class="fas fa-times-circle text-red-500 text-xl"></i>
+                            <i class="fas fa-times-circle text-gray-300 text-xl"></i>
                         @endif
                     </td>
                     <td>{{ $perm['desc'] ?? '-' }}</td>

@@ -129,7 +129,22 @@
         span.innerHTML = '<i class="fas ' + icon + '"></i>';
         img.parentNode && img.parentNode.insertBefore(span, img.nextSibling);
     }, true);
+
+    /* ── previewImage: file input → inline preview ── */
+    window.previewImage = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img = document.getElementById('picture-img');
+                var wrap = document.getElementById('picture-preview');
+                if (img) img.src = e.target.result;
+                if (wrap) wrap.style.display = '';
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    };
 })();
 </script>
 
+@stack('trumbowyg-scripts')
 @stack('foot-scripts')

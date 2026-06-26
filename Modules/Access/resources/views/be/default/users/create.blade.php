@@ -31,7 +31,17 @@
                 @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             <div>
-                <label class="form-label" for="phone">Phone</label>
+                <label class="form-label" for="timezone">Timezone</label>
+                <select id="timezone" name="timezone" class="form-control @error('timezone') is-invalid @enderror">
+                    <option value="">— Select Timezone —</option>
+                    @foreach(['Asia/Jakarta','UTC','America/New_York','Europe/London','Asia/Singapore','Asia/Tokyo','Asia/Shanghai'] as $tz)
+                    <option value="{{ $tz }}" {{ old('timezone', 'Asia/Jakarta') === $tz ? 'selected' : '' }}>{{ $tz }}</option>
+                    @endforeach
+                </select>
+                @error('timezone')<div class="invalid-feedback">{{ $message }}</div>@enderror
+            </div>
+            <div>
+                <label class="form-label" for="phone">Phone Number</label>
                 <input type="text" id="phone" name="phone" class="form-control @error('phone') is-invalid @enderror"
                        value="{{ old('phone') }}" placeholder="Phone number (optional)">
                 @error('phone')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -54,12 +64,27 @@
                 @error('status')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             <div>
-                <label class="form-label" for="picture">Picture URL</label>
-                <input type="text" id="picture" name="picture" class="form-control @error('picture') is-invalid @enderror"
-                       value="{{ old('picture') }}" placeholder="https://...">
-                @error('picture')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                <div class="mt-2" id="picture-preview-wrap">
-                    <img id="picture-preview" src="{{ old('picture') }}" alt="preview" style="max-width:80px;max-height:80px;border-radius:4px;display:{{ old('picture') ? 'block' : 'none' }}">
+                <label class="form-label" for="picture">Picture</label>
+                <input type="file" class="form-control @error('picture') is-invalid @enderror"
+                    id="picture" name="picture" accept="image/*" onchange="previewImage(this)">
+                <div id="picture-preview" class="mt-2" style="{{ old('picture') ? '' : 'display:none' }}">
+                    <img id="picture-img" src="" alt="Preview" style="max-height:120px; border-radius:0.375rem;">
+                </div>
+                <div class="text-danger small mt-1">@error('picture'){{ $message }}@enderror</div>
+            </div>
+            <div class="md:col-span-2">
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" id="blocked" name="blocked" value="1" class="form-check-input"
+                           {{ old('blocked') ? 'checked' : '' }}
+                           onchange="document.getElementById('blocked-reason-wrap').style.display = this.checked ? '' : 'none'">
+                    <label class="form-label mb-0" for="blocked">Blocked</label>
+                </div>
+                <div id="blocked-reason-wrap" style="{{ old('blocked') ? '' : 'display:none' }}" class="mt-2">
+                    <label class="form-label" for="blocked_reason">Blocked Reason</label>
+                    <input type="text" id="blocked_reason" name="blocked_reason"
+                           class="form-control @error('blocked_reason') is-invalid @enderror"
+                           value="{{ old('blocked_reason') }}" placeholder="Reason for blocking...">
+                    @error('blocked_reason')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
             </div>
         </div>
@@ -86,11 +111,4 @@
     </form>
 </div>
 
-<script>
-    document.getElementById('picture').addEventListener('input', function () {
-        const preview = document.getElementById('picture-preview');
-        preview.src = this.value;
-        preview.style.display = this.value ? 'block' : 'none';
-    });
-</script>
 @endsection

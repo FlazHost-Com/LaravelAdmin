@@ -108,3 +108,53 @@ if (! function_exists('auth_user')) {
         return $cache[$userId];
     }
 }
+
+if (! function_exists('hasAccess')) {
+    /**
+     * Check whether the currently authenticated user has a given permission.
+     */
+    function hasAccess(string $name, string $method = 'GET'): bool
+    {
+        return auth_user()?->hasPermission($name, $method) ?? false;
+    }
+}
+
+if (! function_exists('hasRole')) {
+    /**
+     * Check whether the currently authenticated user has a given role.
+     */
+    function hasRole(string $roleName): bool
+    {
+        return auth_user()?->hasRole($roleName) ?? false;
+    }
+}
+
+if (! function_exists('getFile')) {
+    /**
+     * Return a public asset URL for a stored file path, or empty string if null.
+     */
+    function getFile(?string $name): string
+    {
+        return $name ? asset($name) : '';
+    }
+}
+
+if (! function_exists('getError')) {
+    /**
+     * Return the first validation error message for a given key from the session.
+     */
+    function getError(string $key): string
+    {
+        return session('errors')?->first($key) ?? '';
+    }
+}
+
+if (! function_exists('getOld')) {
+    /**
+     * Return the old input value for a given key, with an optional default.
+     */
+    function getOld(string $key, mixed $default = ''): mixed
+    {
+        return old($key, $default);
+    }
+}
