@@ -62,8 +62,8 @@ class FeCatalogService implements IFeCatalogService
         $activeSlug = $activeSetting !== null ? $activeSetting->fe_template : 'agency-consulting-002-creative-agency';
 
         $items = $this->loadCatalog();
-        $search = $filter['fe_search'] ?? '';
-        $category = $filter['fe_category'] ?? '';
+        $search = $filter['q_name'] ?? '';
+        $category = $filter['q_category'] ?? '';
 
         // Filter by search term
         if ($search !== '') {

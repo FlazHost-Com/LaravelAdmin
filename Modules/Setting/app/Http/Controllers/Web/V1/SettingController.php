@@ -26,7 +26,7 @@ class SettingController extends Controller
     public function index(Request $request)
     {
         $setting = $this->settingService->get();
-        $filter = $request->only(['fe_search', 'fe_page', 'fe_category']);
+        $filter = $request->only(['q_name', 'fe_page', 'q_category']);
         $catalog = $this->feCatalogService->getCatalog($filter);
         $themes = self::THEMES;
 

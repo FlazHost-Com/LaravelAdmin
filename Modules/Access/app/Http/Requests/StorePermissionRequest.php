@@ -17,7 +17,7 @@ class StorePermissionRequest extends FormRequest
             'name' => ['required', 'string', 'max:200'],
             'method' => ['required', 'in:GET,POST,PUT,PATCH,DELETE'],
             'guard_name' => ['required', 'in:web,api'],
-            'status' => ['required', 'in:Active,Inactive'],
+            'status' => ['required', 'in:Active,Inactive,active,inactive'],
             'desc' => ['nullable', 'string', 'max:255'],
         ];
     }

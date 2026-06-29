@@ -19,11 +19,11 @@
         @foreach($themes as $themeName => $swatches)
         <label class="cursor-pointer group">
             <input type="radio" name="_theme_picker" value="{{ $themeName }}"
-                   {{ ($setting->theme ?? 'blue') === $themeName ? 'checked' : '' }}
+                   {{ strtolower($setting->theme ?? 'blue') === $themeName ? 'checked' : '' }}
                    class="sr-only theme-radio"
                    onchange="document.getElementById('theme_input').value = this.value">
-            <div class="border-2 rounded-lg p-3 transition-all
-                        {{ ($setting->theme ?? 'blue') === $themeName
+            <div class="theme-swatch border-2 rounded-lg p-3 transition-all
+                        {{ strtolower($setting->theme ?? 'blue') === $themeName
                             ? 'border-gray-800 ring-2 ring-gray-400 bg-gray-50'
                             : 'border-gray-200 hover:border-gray-400' }}"
                  data-theme="{{ $themeName }}">
@@ -33,7 +33,7 @@
                     @endforeach
                 </div>
                 <div class="text-xs font-medium text-gray-700 capitalize">{{ $themeName }}</div>
-                @if(($setting->theme ?? 'blue') === $themeName)
+                @if(strtolower($setting->theme ?? 'blue') === $themeName)
                 <div class="text-xs text-gray-500 mt-0.5">
                     <i class="fas fa-check-circle text-green-500"></i> Active
                 </div>
@@ -49,7 +49,7 @@
      ============================================================ --}}
 <div class="tw-card mb-6">
     <h2 class="text-lg font-semibold text-gray-700 mb-4">
-        <i class="fas fa-layer-group fa-fw text-purple-500"></i> Frontend Template
+        <i class="fas fa-window-maximize fa-fw" style="color:var(--primary)"></i> Frontend Template
     </h2>
     <p class="text-sm text-gray-500 mb-4">
         Choose the public-facing template. The active template is: <strong>{{ $setting->fe_template ?? 'none' }}</strong>
@@ -57,13 +57,13 @@
 
     {{-- Search / Filter Form --}}
     <form method="GET" action="{{ route('admin.v1.setting.index') }}" id="fe_search" class="flex flex-wrap gap-2 mb-4">
-        <input type="text" name="fe_search" value="{{ $filter['fe_search'] ?? '' }}"
+        <input type="text" name="q_name" value="{{ $filter['q_name'] ?? '' }}"
                placeholder="Search templates..." class="form-control w-auto flex-1 min-w-[180px]">
 
-        <select name="fe_category" class="form-control w-auto">
+        <select name="q_category" class="form-control w-auto">
             <option value="">All Categories</option>
             @foreach($catalog['categories'] as $cat)
-            <option value="{{ $cat }}" {{ ($filter['fe_category'] ?? '') === $cat ? 'selected' : '' }}>
+            <option value="{{ $cat }}" {{ ($filter['q_category'] ?? '') === $cat ? 'selected' : '' }}>
                 {{ ucwords(str_replace('-', ' ', $cat)) }}
             </option>
             @endforeach
@@ -73,7 +73,7 @@
         <button type="submit" class="btn btn-secondary">
             <i class="fas fa-search fa-fw"></i> Search
         </button>
-        @if(!empty($filter['fe_search']) || !empty($filter['fe_category']))
+        @if(!empty($filter['q_name']) || !empty($filter['q_category']))
         <a href="{{ route('admin.v1.setting.index') }}" class="btn btn-secondary">
             <i class="fas fa-times fa-fw"></i> Clear
         </a>
@@ -90,7 +90,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mb-4">
         @foreach($catalog['items'] as $tpl)
         @php $isActive = ($tpl['slug'] === ($setting->fe_template ?? '')); @endphp
-        <div class="border-2 rounded-lg overflow-hidden transition-all
+        <div class="fe-card border-2 rounded-lg overflow-hidden transition-all
                     {{ $isActive ? 'border-indigo-500 ring-2 ring-indigo-300' : 'border-gray-200 hover:border-gray-400' }}"
              data-slug="{{ $tpl['slug'] }}">
             {{-- Thumbnail iframe --}}
@@ -155,7 +155,7 @@
      ============================================================ --}}
 <div class="tw-card">
     <h2 class="text-lg font-semibold text-gray-700 mb-4">
-        <i class="fas fa-cog fa-fw text-gray-500"></i> General Settings
+        <i class="fas fa-cog fa-fw text-gray-500"></i> Setting Form
     </h2>
 
     <form method="POST" action="{{ route('admin.v1.setting.update') }}?_method=PUT"

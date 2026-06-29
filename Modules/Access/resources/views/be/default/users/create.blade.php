@@ -2,13 +2,11 @@
 @section('title', 'Create User')
 @section('content')
 <div class="flex items-center justify-between mb-6">
-    <h1 class="text-2xl font-bold text-gray-800">Create User</h1>
-    <a href="{{ route('admin.v1.access.user.index') }}" class="btn btn-sm btn-secondary">
-        <i class="fas fa-arrow-left fa-fw"></i> Back
-    </a>
+    <h1 class="text-2xl font-bold text-gray-800">User Management</h1>
 </div>
 
 <div class="tw-card">
+    <h2 class="text-lg font-bold mb-4" style="color:var(--primary)">User Form</h2>
     <form method="POST" action="{{ route('admin.v1.access.user.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="grid md:grid-cols-2 gap-4">
@@ -94,8 +92,8 @@
             <div class="flex flex-wrap gap-3">
                 @foreach($roles as $role)
                 <label class="flex items-center gap-2 cursor-pointer">
-                    <input type="checkbox" name="role_ids[]" value="{{ $role->id }}"
-                           {{ in_array($role->id, old('role_ids', [])) ? 'checked' : '' }}>
+                    <input type="checkbox" name="roles[]" value="{{ $role->id }}"
+                           {{ in_array($role->id, old('roles', [])) ? 'checked' : '' }}>
                     <span>{{ $role->name }}</span>
                 </label>
                 @endforeach
@@ -106,7 +104,7 @@
             <button type="submit" class="btn btn-primary">
                 <i class="fas fa-save fa-fw"></i> Save
             </button>
-            <a href="{{ route('admin.v1.access.user.index') }}" class="btn btn-secondary">Cancel</a>
+            <a href="{{ route('admin.v1.access.user.index') }}" class="btn btn-danger">Cancel</a>
         </div>
     </form>
 </div>

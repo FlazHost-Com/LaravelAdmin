@@ -24,13 +24,16 @@ class PermissionService implements IPermissionService
         if (! empty($filter['q_status'])) {
             $q->where('status', $filter['q_status']);
         }
+        if (! empty($filter['q_guard'])) {
+            $q->where('guard_name', $filter['q_guard']);
+        }
         if (! empty($filter['q_desc'])) {
             [$col, , $val] = array_values(ci_like('desc', $filter['q_desc']));
             $q->whereRaw("LOWER($col) LIKE ?", [$val]);
         }
 
         $perPage = max(1, (int) ($filter['q_page_size'] ?? 10));
-        $page = max(1, (int) ($filter['page'] ?? 1));
+        $page = max(1, (int) ($filter['q_page'] ?? 1));
         $total = (clone $q)->count();
         $items = $q->skip(($page - 1) * $perPage)->take($perPage)->get();
 

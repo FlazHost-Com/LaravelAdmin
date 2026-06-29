@@ -49,6 +49,11 @@ class SettingService implements ISettingService
             }
         }
 
+        // Normalize theme to lowercase to match THEMES constant keys
+        if (isset($data['theme'])) {
+            $data['theme'] = strtolower($data['theme']);
+        }
+
         // settings table has no created_by/updated_by columns — skip audit columns
         unset($data['updated_by']);
         $setting->forceFill($data);

@@ -15,13 +15,23 @@ if (! function_exists('paginate')) {
         $totalPage = $perPage > 0 ? (int) ceil($total / $perPage) : 1;
         $totalPage = max(1, $totalPage);
 
+        $from = $total > 0 ? ($page - 1) * $perPage + 1 : 0;
+        $to   = min($page * $perPage, $total);
+        $pageNumbers = range(max(1, $page - 2), min($totalPage, $page + 2));
+
         return [
-            'datas'         => $items,
-            'paginate_data' => [
-                'total_data'   => $total,
-                'page_size'    => $perPage,
+            'data'  => $items,
+            'datas' => $items,  // compat alias
+            'meta'  => [
+                'total'        => $total,
+                'per_page'     => $perPage,
                 'current_page' => $page,
-                'total_page'   => $totalPage,
+                'last_page'    => $totalPage,
+                'has_prev'     => $page > 1,
+                'has_next'     => $page < $totalPage,
+                'page_numbers' => $pageNumbers,
+                'from'         => $from,
+                'to'           => $to,
             ],
         ];
     }

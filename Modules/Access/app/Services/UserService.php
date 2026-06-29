@@ -50,8 +50,8 @@ class UserService implements IUserService
         if (User::where('email', $data['email'])->exists()) {
             throw new ConflictException('Email already exists');
         }
-        $roleIds = $data['role_ids'] ?? [];
-        unset($data['role_ids'], $data['password_confirmation']);
+        $roleIds = $data['roles'] ?? [];
+        unset($data['roles'], $data['password_confirmation']);
         $data['password'] = Hash::make($data['password']);
         $data['created_by'] = $actorId;
         $data['updated_by'] = $actorId;
@@ -84,8 +84,8 @@ class UserService implements IUserService
                 throw new ConflictException('Email already used');
             }
         }
-        $roleIds = $data['role_ids'] ?? null;
-        unset($data['role_ids'], $data['password_confirmation']);
+        $roleIds = $data['roles'] ?? null;
+        unset($data['roles'], $data['password_confirmation']);
         if (empty($data['password'])) {
             unset($data['password']);
         } else {

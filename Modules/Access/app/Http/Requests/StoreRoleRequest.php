@@ -15,7 +15,7 @@ class StoreRoleRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:100'],
-            'status' => ['required', 'in:Active,Inactive'],
+            'status' => ['required', 'in:Active,Inactive,active,inactive'],
             'desc' => ['nullable', 'string', 'max:255'],
         ];
     }

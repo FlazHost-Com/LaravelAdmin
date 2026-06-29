@@ -13,15 +13,33 @@ class SettingCacheService
 
     /**
      * Return the current Setting row, cached for 60 seconds.
+     * Auto-creates a default row if none exists.
      */
     public function getCurrent(): Setting
     {
-        /** @var Setting $setting */
-        $setting = Cache::remember(self::CACHE_KEY, self::CACHE_TTL, function () {
-            return Setting::first();
+        /** @var array<string,mixed>|null $attrs */
+        $attrs = Cache::remember(self::CACHE_KEY, self::CACHE_TTL, function () {
+            return Setting::first()?->attributesToArray();
         });
 
-        return $setting;
+        if ($attrs === null) {
+            Cache::forget(self::CACHE_KEY);
+            $row = new Setting;
+            $row->forceFill([
+                'name'        => 'LaravelAdmin',
+                'theme'       => 'blue',
+                'fe_template' => 'agency-consulting-002-creative-agency',
+            ]);
+            $row->save();
+
+            return $row;
+        }
+
+        $instance = new Setting;
+        $instance->setRawAttributes($attrs);
+        $instance->exists = true;
+
+        return $instance;
     }
 
     /**

@@ -104,7 +104,7 @@
                                 <div class="dropdown-divider"></div>
                                 <form method="POST" action="{{ route('admin.v1.access.user.delete', $user['id']) }}?_method=DELETE">
                                     @csrf
-                                    <button type="submit" class="dropdown-item danger" data-confirm="Delete this user?">
+                                    <button type="submit" class="dropdown-item danger" data-confirm="Confirm Delete">
                                         <i class="fas fa-trash fa-fw"></i> Delete
                                     </button>
                                 </form>

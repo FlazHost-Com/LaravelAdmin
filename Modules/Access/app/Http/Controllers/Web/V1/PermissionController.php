@@ -19,7 +19,7 @@ class PermissionController extends Controller
         // Auto-discover permissions from routes on each index load
         $this->permissionService->syncFromRoutes();
 
-        $filter = $request->only(['q_name', 'q_method', 'q_status', 'q_desc', 'q_page_size', 'page']);
+        $filter = $request->only(['q_name', 'q_guard', 'q_method', 'q_status', 'q_desc', 'q_page_size', 'q_page']);
         $result = $this->permissionService->index($filter);
 
         return view('access-module::be.default.permission.index', compact('result', 'filter'));

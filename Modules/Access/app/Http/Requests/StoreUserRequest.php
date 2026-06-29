@@ -20,10 +20,13 @@ class StoreUserRequest extends FormRequest
             'password_confirmation' => ['sometimes'],
             'phone' => ['nullable', 'string', 'max:50'],
             'code' => ['nullable', 'string', 'max:50'],
-            'status' => ['required', 'in:Active,Inactive'],
+            'status' => ['required', 'in:Active,Inactive,active,inactive'],
+            'timezone' => ['nullable', 'string', 'max:64'],
             'picture' => ['nullable', 'string', 'max:500'],
-            'role_ids' => ['nullable', 'array'],
-            'role_ids.*' => ['string'],
+            'blocked' => ['nullable', 'boolean'],
+            'blocked_reason' => ['nullable', 'string', 'max:500'],
+            'roles' => ['nullable', 'array'],
+            'roles.*' => ['string'],
         ];
     }
 }
