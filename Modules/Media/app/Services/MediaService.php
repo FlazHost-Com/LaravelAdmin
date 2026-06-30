@@ -18,7 +18,10 @@ class MediaService implements IMediaService
     public function __construct()
     {
         $driver = env('STORAGE_DRIVER', 'local');
-        $this->disk = in_array($driver, ['oss', 's3']) ? $driver : 'public';
+        $this->disk = match ($driver) {
+            'oss', 's3' => $driver,
+            default     => 'public',
+        };
     }
 
     public function list(): array
