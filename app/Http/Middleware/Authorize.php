@@ -23,9 +23,9 @@ class Authorize
         if ($user === null) {
             if ($request->is('api/*')) {
                 return response()->json([
-                    'status'  => false,
+                    'status' => false,
                     'message' => 'Unauthorized.',
-                    'data'    => null,
+                    'data' => null,
                 ], 401);
             }
 
@@ -41,9 +41,9 @@ class Authorize
         if (! $user->hasPermission($routeName, $method)) {
             if ($request->is('api/*')) {
                 return response()->json([
-                    'status'  => false,
+                    'status' => false,
                     'message' => 'Forbidden.',
-                    'data'    => null,
+                    'data' => null,
                 ], 403);
             }
 

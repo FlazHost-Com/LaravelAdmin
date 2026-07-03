@@ -58,16 +58,16 @@ class ComponentsTest extends TestCase
         $this->actingAsAdmin();
         $response = $this->get('/admin/v1/components');
         $response->assertOk();
-        $response->assertSee('UI Components Showcase');
-        $response->assertSee('Stat Cards');
-        $response->assertSee('Charts');
-        $response->assertSee('Badge');
-        $response->assertSee('Alerts');
-        $response->assertSee('Buttons');
-        $response->assertSee('Modal');
-        $response->assertSee('Form Elements');
-        $response->assertSee('Rich Text Editor');
-        $response->assertSee('Data Table');
+        $response->assertSee('UI Components');
+        $response->assertSee('Stat Card + Counter');
+        $response->assertSee('Chart (Chart.js, warna ikut tema)');
+        $response->assertSee('Badge & Status', false);
+        $response->assertSee('Alert (flash)');
+        $response->assertSee('Button & Dropdown Action', false);
+        $response->assertSee('Popup (Modal / Toast / Confirm)');
+        $response->assertSee('Form (CRUD)');
+        $response->assertSee('Rich Text Editor (Trumbowyg + File Manager)');
+        $response->assertSee('Data Table + Pagination');
     }
 
     public function test_components_route_requires_auth(): void

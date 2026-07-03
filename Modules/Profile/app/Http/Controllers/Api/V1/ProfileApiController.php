@@ -18,16 +18,16 @@ class ProfileApiController extends Controller
             $user = $request->attributes->get('auth_user');
             if (! $user) {
                 $userId = (string) session('user_id');
-                $user   = $this->profileService->get($userId);
+                $user = $this->profileService->get($userId);
             }
 
             return response()->json(['status' => true, 'message' => 'OK', 'data' => [
-                'id'       => $user->id,
-                'name'     => $user->name,
-                'email'    => $user->email,
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
                 'timezone' => $user->timezone ?? '',
-                'picture'  => $user->picture  ?? '',
-                'status'   => $user->status   ?? '',
+                'picture' => $user->picture ?? '',
+                'status' => $user->status ?? '',
             ]]);
         } catch (\Throwable $e) {
             return response()->json(['status' => false, 'message' => $e->getMessage(), 'data' => null], 404);

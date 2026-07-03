@@ -17,6 +17,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Storage Driver (generic STORAGE_* adapter)
+    |--------------------------------------------------------------------------
+    |
+    | Driver storage aplikasi: local | oss | s3. Dipetakan ke disk pada
+    | bagian "disks" di bawah ("local" dipetakan ke disk "public").
+    |
+    */
+
+    'storage_driver' => env('STORAGE_DRIVER', 'local'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Filesystem Disks
     |--------------------------------------------------------------------------
     |

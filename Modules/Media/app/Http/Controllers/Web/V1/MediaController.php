@@ -15,9 +15,9 @@ class MediaController extends Controller
         $files = $this->mediaService->list();
 
         return response()->json([
-            'status'  => true,
+            'status' => true,
             'message' => 'OK',
-            'data'    => $files,
+            'data' => $files,
         ]);
     }
 
@@ -33,9 +33,9 @@ class MediaController extends Controller
             $result = $this->mediaService->upload($file);
 
             return response()->json([
-                'status'  => true,
+                'status' => true,
                 'message' => 'Upload Success.',
-                'data'    => $result,
+                'data' => $result,
             ]);
         } catch (\Throwable $e) {
             return response()->json(['status' => false, 'message' => $e->getMessage(), 'data' => null], 422);

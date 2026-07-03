@@ -17,10 +17,10 @@ class MediaService implements IMediaService
 
     public function __construct()
     {
-        $driver = env('STORAGE_DRIVER', 'local');
+        $driver = config('filesystems.storage_driver', 'local');
         $this->disk = match ($driver) {
             'oss', 's3' => $driver,
-            default     => 'public',
+            default => 'public',
         };
     }
 
@@ -34,8 +34,8 @@ class MediaService implements IMediaService
 
         return array_map(function ($path) {
             return [
-                'key'  => $path,
-                'url'  => Storage::disk($this->disk)->url($path),
+                'key' => $path,
+                'url' => Storage::disk($this->disk)->url($path),
                 'name' => basename($path),
             ];
         }, $files);
@@ -50,8 +50,8 @@ class MediaService implements IMediaService
             throw new ValidationAppException('Only image files are allowed.');
         }
 
-        $filename = uniqid('media_', true) . '.' . $file->getClientOriginalExtension();
-        $path = 'media/' . $filename;
+        $filename = uniqid('media_', true).'.'.$file->getClientOriginalExtension();
+        $path = 'media/'.$filename;
 
         try {
             Storage::disk($this->disk)->putFileAs('media', $file, $filename);
@@ -59,7 +59,7 @@ class MediaService implements IMediaService
         } catch (\Throwable) {
             Storage::disk('public')->putFileAs('media', $file, $filename);
             $url = Storage::disk('public')->url($path);
-            $path = 'media/' . $filename;
+            $path = 'media/'.$filename;
         }
 
         return ['url' => $url, 'key' => $path];

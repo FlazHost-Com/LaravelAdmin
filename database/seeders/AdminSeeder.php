@@ -26,15 +26,15 @@ class AdminSeeder extends Seeder
         $user = User::updateOrCreate(
             ['email' => 'admin@admin.com'],
             [
-                'code'               => '0000000001',
-                'name'               => 'Administrator',
-                'phone'              => '12345678910',
-                'email_verified_at'  => now(),
-                'password'           => Hash::make('12345678'),
-                'status'             => 'Active',
-                'timezone'           => 'Asia/Jakarta',
-                'blocked'            => false,
-                'blocked_reason'     => '',
+                'code' => '0000000001',
+                'name' => 'Administrator',
+                'phone' => '12345678910',
+                'email_verified_at' => now(),
+                'password' => Hash::make('12345678'),
+                'status' => 'Active',
+                'timezone' => 'Asia/Jakarta',
+                'blocked' => false,
+                'blocked_reason' => '',
             ]
         );
 

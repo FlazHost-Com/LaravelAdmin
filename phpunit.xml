@@ -15,6 +15,7 @@
             <directory>Modules/Auth/tests</directory>
             <directory>Modules/Access/tests</directory>
             <directory>Modules/Components/tests</directory>
+            <directory>Modules/Media/tests</directory>
             <directory>Modules/Profile/tests</directory>
             <directory>Modules/Setting/tests</directory>
             <directory>Modules/Dashboard/tests</directory>

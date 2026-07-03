@@ -2,6 +2,7 @@
 
 namespace Modules\Auth\app\Services;
 
+use App\Exceptions\AppException;
 use App\Exceptions\ConflictException;
 use App\Exceptions\NotFoundAppException;
 use App\Exceptions\UnauthorizedException;
@@ -35,10 +36,10 @@ class AuthService implements IAuthService
             throw new ConflictException('Email already exists.');
         }
         $user = User::create([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
+            'name' => $data['name'],
+            'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'status'   => 'Active',
+            'status' => 'Active',
         ]);
         session(['user_id' => $user->id]);
         $token = $this->jwt->makeAccessToken($user->id);
@@ -64,7 +65,7 @@ class AuthService implements IAuthService
         $otp = generate_otp();
         $expiryMinutes = (int) config('laraveladmin.otp_expiry_minutes', 10);
         $user->update([
-            'password_otp'         => hash_otp($otp),
+            'password_otp' => hash_otp($otp),
             'password_otp_expires' => now()->addMinutes($expiryMinutes),
         ]);
         // TODO: send email with OTP $otp
@@ -74,18 +75,18 @@ class AuthService implements IAuthService
     {
         $user = User::where('email', $data['email'])->first();
         if (! $user || ! $user->password_otp) {
-            throw new \App\Exceptions\AppException('OTP is invalid.');
+            throw new AppException('OTP is invalid.');
         }
         if (now()->isAfter($user->password_otp_expires)) {
-            throw new \App\Exceptions\AppException('OTP has expired.');
+            throw new AppException('OTP has expired.');
         }
         if (! verify_otp($data['otp'], $user->password_otp)) {
-            throw new \App\Exceptions\AppException('OTP is invalid.');
+            throw new AppException('OTP is invalid.');
         }
 
         $user->update([
-            'password'             => Hash::make($data['password']),
-            'password_otp'         => null,
+            'password' => Hash::make($data['password']),
+            'password_otp' => null,
             'password_otp_expires' => null,
         ]);
 

@@ -51,9 +51,8 @@ class Setting extends Model
             return null;
         }
 
-        $instance = new static();
-        $instance->setRawAttributes($attrs);
-        $instance->exists = true;
+        /** @var self $instance */
+        $instance = (new self)->newFromBuilder($attrs);
 
         return $instance;
     }

@@ -19,12 +19,12 @@ class AuthController extends Controller
             $result = $this->authService->login($request->validated());
 
             return response()->json([
-                'status'  => true,
+                'status' => true,
                 'message' => 'OK',
-                'data'    => [
+                'data' => [
                     'access_token' => $result['token'],
-                    'token_type'   => 'Bearer',
-                    'user'         => $result['user'],
+                    'token_type' => 'Bearer',
+                    'user' => $result['user'],
                 ],
             ]);
         } catch (\Throwable $e) {
@@ -54,12 +54,12 @@ class AuthController extends Controller
             $result = $this->authService->register($request->validated());
 
             return response()->json([
-                'status'  => true,
+                'status' => true,
                 'message' => 'Register Success.',
-                'data'    => [
+                'data' => [
                     'access_token' => $result['token'],
-                    'token_type'   => 'Bearer',
-                    'user'         => $result['user'],
+                    'token_type' => 'Bearer',
+                    'user' => $result['user'],
                 ],
             ], 201);
         } catch (\Throwable $e) {

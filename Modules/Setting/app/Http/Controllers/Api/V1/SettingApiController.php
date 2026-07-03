@@ -17,9 +17,9 @@ class SettingApiController extends Controller
             $setting = $this->settingService->get();
 
             return response()->json(['status' => true, 'message' => 'OK', 'data' => [
-                'id'          => $setting->id,
-                'name'        => $setting->name        ?? '',
-                'theme'       => $setting->theme       ?? '',
+                'id' => $setting->id,
+                'name' => $setting->name ?? '',
+                'theme' => $setting->theme ?? '',
                 'fe_template' => $setting->fe_template ?? '',
             ]]);
         } catch (\Throwable $e) {

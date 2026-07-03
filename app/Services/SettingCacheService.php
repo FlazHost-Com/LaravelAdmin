@@ -26,8 +26,8 @@ class SettingCacheService
             Cache::forget(self::CACHE_KEY);
             $row = new Setting;
             $row->forceFill([
-                'name'        => 'LaravelAdmin',
-                'theme'       => 'blue',
+                'name' => 'LaravelAdmin',
+                'theme' => 'blue',
                 'fe_template' => 'agency-consulting-002-creative-agency',
             ]);
             $row->save();

@@ -16,22 +16,22 @@ if (! function_exists('paginate')) {
         $totalPage = max(1, $totalPage);
 
         $from = $total > 0 ? ($page - 1) * $perPage + 1 : 0;
-        $to   = min($page * $perPage, $total);
+        $to = min($page * $perPage, $total);
         $pageNumbers = range(max(1, $page - 2), min($totalPage, $page + 2));
 
         return [
-            'data'  => $items,
+            'data' => $items,
             'datas' => $items,  // compat alias
-            'meta'  => [
-                'total'        => $total,
-                'per_page'     => $perPage,
+            'meta' => [
+                'total' => $total,
+                'per_page' => $perPage,
                 'current_page' => $page,
-                'last_page'    => $totalPage,
-                'has_prev'     => $page > 1,
-                'has_next'     => $page < $totalPage,
+                'last_page' => $totalPage,
+                'has_prev' => $page > 1,
+                'has_next' => $page < $totalPage,
                 'page_numbers' => $pageNumbers,
-                'from'         => $from,
-                'to'           => $to,
+                'from' => $from,
+                'to' => $to,
             ],
         ];
     }
@@ -85,6 +85,7 @@ if (! function_exists('hash_otp')) {
     function hash_otp(string $otp): string
     {
         $cost = (int) config('laraveladmin.bcrypt_rounds', 10);
+
         return password_hash($otp, PASSWORD_BCRYPT, ['cost' => $cost]);
     }
 }

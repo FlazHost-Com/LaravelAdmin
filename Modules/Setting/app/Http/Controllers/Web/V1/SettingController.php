@@ -11,11 +11,11 @@ use Modules\Setting\app\Interfaces\ISettingService;
 class SettingController extends Controller
 {
     private const THEMES = [
-        'blue'   => ['#3B82F6', '#60A5FA', '#EFF6FF', '#1E40AF'],
+        'blue' => ['#3B82F6', '#60A5FA', '#EFF6FF', '#1E40AF'],
         'purple' => ['#8B5CF6', '#A78BFA', '#F5F3FF', '#5B21B6'],
-        'green'  => ['#10B981', '#34D399', '#ECFDF5', '#065F46'],
+        'green' => ['#10B981', '#34D399', '#ECFDF5', '#065F46'],
         'orange' => ['#F59E0B', '#FCD34D', '#FFFBEB', '#92400E'],
-        'red'    => ['#EF4444', '#F87171', '#FEF2F2', '#991B1B'],
+        'red' => ['#EF4444', '#F87171', '#FEF2F2', '#991B1B'],
     ];
 
     public function __construct(
