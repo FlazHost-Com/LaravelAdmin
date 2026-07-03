@@ -28,6 +28,7 @@ jobs:
           php artisan key:generate
           echo "DB_CONNECTION=sqlite" >> .env
           echo "DB_DATABASE=:memory:" >> .env
+          echo "CACHE_STORE=file" >> .env
           echo "JWT_SECRET=ci-test-secret-key-min-32-chars-123" >> .env
 
       - name: Check formatting (Pint)

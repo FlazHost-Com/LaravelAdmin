@@ -23,8 +23,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Fail-fast: critical secrets must be present in production
-        if (app()->isProduction()) {
+        // Fail-fast: critical secrets must be present in production.
+        // Skipped for composer build-time commands (package:discover, vendor:publish,
+        // key:generate) which legitimately run before .env exists — e.g. during
+        // `composer install` on CI or a fresh clone, APP_ENV defaults to production.
+        $buildTimeCommand = app()->runningConsoleCommand('package:discover', 'vendor:publish', 'key:generate');
+        if (app()->isProduction() && ! $buildTimeCommand) {
             if (empty(config('laraveladmin.jwt_secret'))) {
                 throw new \RuntimeException('JWT_SECRET must be set in production');
             }
