@@ -51,7 +51,7 @@ class FeTemplateService implements IFeTemplateService
     public function getActiveSlug(): string
     {
         $setting = Setting::getCurrent();
-        $slug = trim((string) ($setting?->fe_template ?? ''));
+        $slug = trim((string) ($setting->fe_template ?? ''));
 
         return $this->isValidSlug($slug) ? $slug : config('fe_templates.default');
     }
